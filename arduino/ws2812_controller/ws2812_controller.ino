@@ -1,16 +1,15 @@
-#include <Arduino.h>
 #include <ESP8266WiFi.h>
-#include <WebSocketsServer.h>
-#include <Hash.h>
 #include <WiFiUdp.h>
-#include "ws2812_i2s.h"
+#include <FastLED.h>
 
-// Set to the number of LEDs in your LED strip
-#define NUM_LEDS 60
-// Maximum number of packets to hold in the buffer. Don't change this.
-#define BUFFER_LEN 1024
-// Toggles FPS output (1 = print FPS over serial, 0 = disable output)
-#define PRINT_FPS 1
+
+// Fixed definitions cannot change on the fly.
+#define LED_DT 3                                           // Serial data pin | use 3(RX-Pin)
+#define COLOR_ORDER BRG                                    // It's GRB for WS2812B | BGR for APA102 | BRG for WS2811
+#define LED_TYPE WS2811                                    // What kind of strip are you using (APA102, WS2801 or WS2812B)?
+#define NUM_LEDS 99                                        // Number of LED's
+#define BUFFER_LEN 1024                                    // Maximum number of packets to hold in the buffer. Don't change this.
+#define PRINT_FPS 1                                        // Toggles FPS output (1 = print FPS over serial, 0 = disable output)
 
 // Wifi and socket settings
 const char* ssid     = "YOUR_WIFI_SSID";
@@ -18,10 +17,10 @@ const char* password = "YOUR_WIFI_PASSWORD";
 unsigned int localPort = 7777;
 char packetBuffer[BUFFER_LEN];
 
-// LED strip
-static WS2812 ledstrip;
-static Pixel_t pixels[NUM_LEDS];
-WiFiUDP port;
+// Initialize changeable global variables.
+uint8_t max_bright = 255;                                   // Overall brightness definition. It can be changed on the fly.
+struct CRGB pixels[NUM_LEDS];                               // Initialize our LED array.
+WiFiUDP port;                                               // UDP Port for Data packages
 
 // Network information
 // IP must match the IP in config.py
@@ -46,7 +45,12 @@ void setup() {
     Serial.print("IP address: ");
     Serial.println(WiFi.localIP());
     port.begin(localPort);
-    ledstrip.init(NUM_LEDS);
+    
+    // Initialize LED Strip with FastLED library.
+    // FOR FURTHER INFORMATION LOOK https://github.com/FastLED/FastLED
+    LEDS.addLeds<LED_TYPE, LED_DT, COLOR_ORDER>(pixels, NUM_LEDS);  // For WS2811  
+    FastLED.setBrightness(max_bright);                              // For maximum brightness
+    set_max_power_in_volts_and_milliamps(5, 500);                   // FastLED Power management set at 5V, 500mA
 }
 
 uint8_t N = 0;
@@ -64,11 +68,11 @@ void loop() {
         for(int i = 0; i < len; i+=4) {
             packetBuffer[len] = 0;
             N = packetBuffer[i];
-            pixels[N].R = (uint8_t)packetBuffer[i+1];
-            pixels[N].G = (uint8_t)packetBuffer[i+2];
-            pixels[N].B = (uint8_t)packetBuffer[i+3];
+            pixels[N].r = (uint8_t)packetBuffer[i+1];
+            pixels[N].g = (uint8_t)packetBuffer[i+2];
+            pixels[N].b = (uint8_t)packetBuffer[i+3];
         } 
-        ledstrip.show(pixels);
+        FastLED.show();
         #if PRINT_FPS
             fpsCounter++;
         #endif
