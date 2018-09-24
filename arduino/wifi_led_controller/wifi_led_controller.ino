@@ -3,9 +3,8 @@
 #include <FastLED.h>
 
 // THIS PROJECT USES THE FASTLED-LIBRARY
-// FOR FURTHER INFORMATION LOOK AT https://github.com/FastLED/FastLED 
+// FOR FURTHER INFORMATION LOOK AT https://github.com/FastLED/FastLED
 // THERE WILL BE EXAMPLES HOW TO USE THE LIBRARAY WITH YOUR DEVICE/LED
-
 
 // Fixed definitions cannot change on the fly.
 #define LED_DT 5        // Serial data pin
