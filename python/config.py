@@ -3,20 +3,17 @@ from __future__ import print_function
 from __future__ import division
 import os
 
-DEVICE = 'esp8266'
-"""Device used to control LED strip. Must be 'pi',  'esp8266' or 'blinkstick'
+class DEVICES:
+    ESP8266 = 'esp8266'         # if you use an ESP8266 over WiFi
+    PI = 'pi'                   # if you use a Raspberry Pi as a standalone unit
+    BLINKSTICK = 'blinkstick'   # if you use a BlinkstickPro is connected to this PC
 
-'esp8266' means that you are using an ESP8266 module to control the LED strip
-and commands will be sent to the ESP8266 over WiFi.
 
-'pi' means that you are using a Raspberry Pi as a standalone unit to process
-audio input and control the LED strip directly.
 
-'blinkstick' means that a BlinkstickPro is connected to this PC which will be used
-to control the leds connected to it.
-"""
 
-if DEVICE == 'esp8266':
+DEVICE = DEVICES.ESP8266
+
+if DEVICE == DEVICES.ESP8266:
     UDP_IP = '192.168.0.150'
     """IP address of the ESP8266. Must match IP in ws2812_controller.ino"""
     UDP_PORT = 7777
@@ -24,7 +21,7 @@ if DEVICE == 'esp8266':
     SOFTWARE_GAMMA_CORRECTION = False
     """Set to False because the firmware handles gamma correction + dither"""
 
-if DEVICE == 'pi':
+if DEVICE == DEVICES.PI:
     LED_PIN = 18
     """GPIO pin connected to the LED strip pixels (must support PWM)"""
     LED_FREQ_HZ = 800000
@@ -38,7 +35,7 @@ if DEVICE == 'pi':
     SOFTWARE_GAMMA_CORRECTION = True
     """Set to True because Raspberry Pi doesn't use hardware dithering"""
 
-if DEVICE == 'blinkstick':
+if DEVICE == DEVICES.BLINKSTICK:
     SOFTWARE_GAMMA_CORRECTION = True
     """Set to True because blinkstick doesn't use hardware dithering"""
 
@@ -48,7 +45,7 @@ USE_GUI = True
 DISPLAY_FPS = True
 """Whether to display the FPS when running (can reduce performance)"""
 
-N_PIXELS = 60
+N_PIXELS = 99
 """Number of pixels in the LED strip (must match ESP8266 firmware)"""
 
 GAMMA_TABLE_PATH = os.path.join(os.path.dirname(__file__), 'gamma_table.npy')
@@ -82,7 +79,7 @@ MIN_FREQUENCY = 200
 MAX_FREQUENCY = 12000
 """Frequencies above this value will be removed during audio processing"""
 
-N_FFT_BINS = 24
+N_FFT_BINS = 32
 """Number of frequency bins to use when transforming audio to frequency domain
 
 Fast Fourier transforms are used to transform time-domain audio data to the
