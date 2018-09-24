@@ -95,22 +95,19 @@ class Visualizer():
         dsp.create_mel_bank()
 
     def energy_click(self, x):
-        global visualization_effect
-        visualization_effect = energy
+        self.visualization_effect = energy
         self.energy_label.setText('Energy', color=self.active_color)
         self.scroll_label.setText('Scroll', color=self.inactive_color)
         self.spectrum_label.setText('Spectrum', color=self.inactive_color)
 
     def scroll_click(self, x):
-        global visualization_effect
-        visualization_effect = scroll
+        self.visualization_effect = scroll
         self.energy_label.setText('Energy', color=self.inactive_color)
         self.scroll_label.setText('Scroll', color=self.active_color)
         self.spectrum_label.setText('Spectrum', color=self.inactive_color)
 
     def spectrum_click(self, x):
-        global visualization_effect
-        visualization_effect = spectrum
+        self.visualization_effect = spectrum
         self.energy_label.setText('Energy', color=self.inactive_color)
         self.scroll_label.setText('Scroll', color=self.inactive_color)
         self.spectrum_label.setText('Spectrum', color=self.active_color)

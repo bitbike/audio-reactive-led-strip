@@ -68,6 +68,7 @@ class Processor():
 
 
     def __call__(self, audio_samples):
+        self.visualization_effect = self.parent.visualization_effect
         # Normalize samples between 0 and 1
         y = audio_samples / 2.0**15
         # Construct a rolling window of audio samples
@@ -99,7 +100,7 @@ class Processor():
             mel /= self.mel_gain.value
             mel = self.mel_smoothing.update(mel)
             # Map filterbank output onto LED strip
-            output = spectrum(mel) 
+            output = self.visualization_effect(mel) 
             led.pixels = output
             led.update()
             if config.USE_GUI:
