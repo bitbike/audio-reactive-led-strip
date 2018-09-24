@@ -1,43 +1,25 @@
 """Settings for audio reactive LED strip"""
-from __future__ import print_function
-from __future__ import division
+from __future__ import division, print_function
+
 import os
 
-class DEVICES:
-    ESP8266 = 'esp8266'         # if you use an ESP8266 over WiFi
-    PI = 'pi'                   # if you use a Raspberry Pi as a standalone unit
-    BLINKSTICK = 'blinkstick'   # if you use a BlinkstickPro is connected to this PC
-
-
-
+from settings.constants import DEVICES
 
 DEVICE = DEVICES.ESP8266
 
 if DEVICE == DEVICES.ESP8266:
-    UDP_IP = '192.168.0.150'
-    """IP address of the ESP8266. Must match IP in ws2812_controller.ino"""
-    UDP_PORT = 7777
-    """Port number used for socket communication between Python and ESP8266"""
-    SOFTWARE_GAMMA_CORRECTION = False
-    """Set to False because the firmware handles gamma correction + dither"""
-
-if DEVICE == DEVICES.PI:
-    LED_PIN = 18
-    """GPIO pin connected to the LED strip pixels (must support PWM)"""
-    LED_FREQ_HZ = 800000
-    """LED signal frequency in Hz (usually 800kHz)"""
-    LED_DMA = 5
-    """DMA channel used for generating PWM signal (try 5)"""
-    BRIGHTNESS = 255
-    """Brightness of LED strip between 0 and 255"""
-    LED_INVERT = True
-    """Set True if using an inverting logic level converter"""
-    SOFTWARE_GAMMA_CORRECTION = True
-    """Set to True because Raspberry Pi doesn't use hardware dithering"""
-
-if DEVICE == DEVICES.BLINKSTICK:
-    SOFTWARE_GAMMA_CORRECTION = True
-    """Set to True because blinkstick doesn't use hardware dithering"""
+    UDP_IP = '192.168.0.150'            # IP address of the ESP8266. Must match IP in ws2812_controller.ino"""
+    UDP_PORT = 7777                     # Port number used for socket communication between Python and ESP8266"""
+    SOFTWARE_GAMMA_CORRECTION = False   # Set to False because the firmware handles gamma correction + dither"""
+elif DEVICE == DEVICES.PI:
+    LED_PIN = 18                        # GPIO pin connected to the LED strip pixels (must support PWM)"""
+    LED_FREQ_HZ = 800000                # LED signal frequency in Hz (usually 800kHz)"""
+    LED_DMA = 5                         # DMA channel used for generating PWM signal (try 5)"""
+    BRIGHTNESS = 255                    # Brightness of LED strip between 0 and 255"""
+    LED_INVERT = True                   # Set True if using an inverting logic level converter"""
+    SOFTWARE_GAMMA_CORRECTION = True    # Set to True because Raspberry Pi doesn't use hardware dithering"""
+elif DEVICE == DEVICES.BLINKSTICK:
+    SOFTWARE_GAMMA_CORRECTION = True    # Set to True because blinkstick doesn't use hardware dithering"""
 
 USE_GUI = True
 """Whether or not to display a PyQtGraph GUI plot of visualization"""

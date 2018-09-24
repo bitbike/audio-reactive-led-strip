@@ -1,22 +1,24 @@
-from __future__ import print_function
-from __future__ import division
+from __future__ import division, print_function
 
 import platform
+
 import numpy as np
-import config
+
+from settings import config
+from settings.constants import DEVICES
 
 # ESP8266 uses WiFi communication
-if config.DEVICE == 'esp8266':
+if config.DEVICE == DEVICES.ESP8266:
     import socket
     _sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 # Raspberry Pi controls the LED strip directly
-elif config.DEVICE == 'pi':
+elif config.DEVICE == DEVICES.PI:
     import neopixel
     strip = neopixel.Adafruit_NeoPixel(config.N_PIXELS, config.LED_PIN,
                                        config.LED_FREQ_HZ, config.LED_DMA,
                                        config.LED_INVERT, config.BRIGHTNESS)
     strip.begin()
-elif config.DEVICE == 'blinkstick':
+elif config.DEVICE == DEVICES.BLINKSTICK:
     from blinkstick import blinkstick
     import signal
     import sys
@@ -137,11 +139,11 @@ def _update_blinkstick():
 
 def update():
     """Updates the LED strip values"""
-    if config.DEVICE == 'esp8266':
+    if config.DEVICE == DEVICES.ESP8266:
         _update_esp8266()
-    elif config.DEVICE == 'pi':
+    elif config.DEVICE == DEVICES.PI:
         _update_pi()
-    elif config.DEVICE == 'blinkstick':
+    elif config.DEVICE == DEVICES.BLINKSTICK:
         _update_blinkstick()
     else:
         raise ValueError('Invalid device selected')

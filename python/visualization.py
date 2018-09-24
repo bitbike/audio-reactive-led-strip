@@ -1,12 +1,13 @@
-from __future__ import print_function
-from __future__ import division
+from __future__ import division, print_function
+
 import time
+
 import numpy as np
 from scipy.ndimage.filters import gaussian_filter1d
-import config
-import microphone
+from settings import config
 import dsp
 import led
+import microphone
 
 _time_prev = time.time() * 1000.0
 """The previous time that the frames_per_second() function was called"""
