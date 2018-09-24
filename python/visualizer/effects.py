@@ -5,8 +5,7 @@ import time
 import numpy as np
 from scipy.ndimage.filters import gaussian_filter1d
 
-import dsp
-import microphone
+from audio import dsp
 from settings import config
 
 r_filt = dsp.ExpFilter(np.tile(0.01, config.N_PIXELS // 2),

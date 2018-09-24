@@ -1,7 +1,7 @@
 from __future__ import print_function
 import numpy as np
 from settings import config
-import melbank
+from audio import melbank
 
 
 class ExpFilter:
