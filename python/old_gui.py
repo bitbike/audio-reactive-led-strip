@@ -3,14 +3,14 @@ from __future__ import division, print_function
 import time
 
 import numpy as np
+import pyqtgraph as pg
+from pyqtgraph.Qt import QtCore, QtGui
 from scipy.ndimage.filters import gaussian_filter1d
 
-import led
-from audio import dsp, microphone
+from output import led
+from audio import dsp
 from settings import config
 from visualizer.effects import energy, scroll, spectrum
-import pyqtgraph as pg
-from pyqtgraph.Qt import QtGui, QtCore
 
 
 class Visualizer():

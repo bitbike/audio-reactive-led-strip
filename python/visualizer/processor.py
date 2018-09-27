@@ -5,7 +5,7 @@ import time
 import numpy as np
 from scipy.ndimage.filters import gaussian_filter1d
 
-import led
+from output import led
 from audio import dsp, microphone
 from settings import config
 from visualizer.effects import spectrum
@@ -112,11 +112,8 @@ class Processor():
                 self.parent.r_curve.setData(y=led.pixels[0])
                 self.parent.g_curve.setData(y=led.pixels[1])
                 self.parent.b_curve.setData(y=led.pixels[2])
-        if config.USE_GUI:
-            self.parent.parent.processEvents()
-
         if config.DISPLAY_FPS:
             fps = self.frames_per_second()
             if time.time() - 0.5 > self.prev_fps_update:
-                prev_fps_update = time.time()
+                self.prev_fps_update = time.time()
                 print('FPS {:.0f} / {:.0f}'.format(fps, config.FPS))
