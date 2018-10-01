@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{47eeefc5-975f-4842-880d-28c8a89a1c76}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>python\app.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <InterpreterId>CondaEnv|CondaEnv|py_music</InterpreterId>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="images\audio-source.png" />
+    <Content Include="images\block-diagram.png" />
+    <Content Include="images\breadboard-led-strip.jpg" />
+    <Content Include="images\description-cropped.gif" />
+    <Content Include="images\description.gif" />
+    <Content Include="images\esp8266-block-diagram.png" />
+    <Content Include="images\FeatherHuzzah-small.png" />
+    <Content Include="images\led-effect-demo.gif" />
+    <Content Include="images\NodeMCUv3-small.png" />
+    <Content Include="images\raspberry-pi-block-diagram.png" />
+    <Content Include="images\scroll-effect-demo.gif" />
+    <Content Include="images\stereo-enable.png" />
+    <Content Include="images\stereo-show.png" />
+    <Content Include="images\visualization-gui.png" />
+    <Content Include="LICENSE.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="python\app.py" />
+    <Compile Include="python\audio\dsp.py" />
+    <Compile Include="python\audio\melbank.py" />
+    <Compile Include="python\audio\microphone.py" />
+    <Compile Include="python\audio\__init__.py" />
+    <Compile Include="python\gui\gui.py" />
+    <Compile Include="python\gui\ui.py" />
+    <Compile Include="python\gui\__init__.py" />
+    <Compile Include="python\old_gui.py" />
+    <Compile Include="python\output\led.py" />
+    <Compile Include="python\output\__init__.py" />
+    <Compile Include="python\settings\config.py" />
+    <Compile Include="python\settings\constants.py" />
+    <Compile Include="python\settings\__init__.py" />
+    <Compile Include="python\visualizer\effects.py" />
+    <Compile Include="python\visualizer\processor.py" />
+    <Compile Include="python\visualizer\__init__.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="images" />
+    <Folder Include="python" />
+    <Folder Include="python\audio" />
+    <Folder Include="python\gui" />
+    <Folder Include="python\output\" />
+    <Folder Include="python\settings" />
+    <Folder Include="python\visualizer" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterpreterReference Include="CondaEnv|CondaEnv|py_music" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
+</Project>
